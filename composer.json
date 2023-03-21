@@ -1,0 +1,22 @@
+{
+    "name": "user/wp-user-reaction",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "autoload": {
+        "psr-4": {
+            "AA\\WpUserReaction\\": "includes/"
+            
+        },
+        "files": [
+            "includes/functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "dev-alamin",
+            "email": "hmalaminmb4@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
