@@ -1,5 +1,5 @@
 <?php 
-namespace AA\WpUserReaction\Admin;
+namespace AA\WPUserReactionButton\Admin;
 
 class Menu{
     public function __construct(){
@@ -16,7 +16,7 @@ class Menu{
             __( 'WP User Reaction', 'wur' ), 
             __( 'WP User Reaction', 'wur' ), 
             'manage_options', 
-            'wp-user-reaction', 
+            'wp-user-reaction-button', 
             [ $this, 'menu_page' ], 
             'dashicons-format-status',
             25 

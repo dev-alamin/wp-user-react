@@ -4,7 +4,7 @@
     "license": "GPLv2",
     "autoload": {
         "psr-4": {
-            "AA\\WpReactionButton\\": "includes/"
+            "AA\\WPUserReactionButton\\": "includes/"
             
         },
         "files": [

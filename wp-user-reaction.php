@@ -88,7 +88,7 @@ final class WP_User_Reaction_Button{
 
         if( is_admin() ) {
             // Do stuff only for admin
-            new \AA\WpReactionButton\Admin();
+            new \AA\WPUserReactionButton\Admin();
         }else{
             // Do stuff only for Frontend
 

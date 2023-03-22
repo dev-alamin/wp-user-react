@@ -1,8 +1,8 @@
 <?php
-namespace AA\WpReactionButton;
+namespace AA\WPUserReactionButton;
 
 class Admin{
     public function __construct(){
-        new \AA\WpUserReaction\Admin\Menu();
+        new \AA\WPUserReactionButton\Admin\Menu();
     }
 }
