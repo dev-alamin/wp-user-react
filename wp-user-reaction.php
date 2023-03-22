@@ -62,12 +62,12 @@ final class WP_User_Reaction_Button{
      * Define plugin's constants
      * $return void
      */
-    public function define_constant()
-    {
+    public function define_constant(){
         define( 'WPUR_VERSION', self::version );
         define( 'WPUR_PLUGIN', __FILE__ );
         define( 'WPUR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
         define( 'WPUR_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+        define( 'WPUR_PLUGIN_ASSETS', WPUR_PLUGIN_URL . 'assets' );
     }
 
     /**
@@ -76,6 +76,7 @@ final class WP_User_Reaction_Button{
      * @return void
      */
     public function activate(){
+
     }
     
     /**
@@ -85,13 +86,12 @@ final class WP_User_Reaction_Button{
      */
     public function plugin_activate(){
         load_plugin_textdomain( 'wur', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+        new \AA\WPUserReactionButton\Assets(); 
+        new \AA\WPUserReactionButton\Frontend();
 
         if( is_admin() ) {
-            // Do stuff only for admin
             new \AA\WPUserReactionButton\Admin();
         }else{
-            // Do stuff only for Frontend
-
         }
         
     }
