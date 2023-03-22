@@ -1,5 +1,5 @@
 <?php
-namespace AA\WpUserReaction\Frontend;
+namespace AA\WpReactionButton\Frontend;
 
 class Frontend{
     public function __construct(){

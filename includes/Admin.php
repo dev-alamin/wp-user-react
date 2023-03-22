@@ -1,5 +1,5 @@
 <?php
-namespace AA\WpUserReaction;
+namespace AA\WpReactionButton;
 
 class Admin{
     public function __construct(){

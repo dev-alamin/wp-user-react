@@ -1,6 +1,6 @@
 <?php 
 /**
- * Plugin Name: WP User Reaction
+ * Plugin Name: WP Reaction Button
  * Plugin URI:  https://almn.me
  * Description: A WordPress Plugin that help you to add Reaction option to any POST type.
  * Version:     1.0
@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || die( 'No script kiddies please!' );
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-final class WP_User_Reaction{
+final class WP_User_Reaction_Button{
 
     /**
      * Plugin's version
@@ -88,7 +88,7 @@ final class WP_User_Reaction{
 
         if( is_admin() ) {
             // Do stuff only for admin
-            new \AA\WpUserReaction\Admin();
+            new \AA\WpReactionButton\Admin();
         }else{
             // Do stuff only for Frontend
 
@@ -98,13 +98,13 @@ final class WP_User_Reaction{
 }
 
 // Call plugin class 
-if( ! function_exists( 'wp_user_reaction' ) ) {
-    function wp_user_reaction(){
-        WP_User_Reaction::init();
+if( ! function_exists( 'wp_user_reaction_button' ) ) {
+    function wp_user_reaction_button(){
+        WP_User_Reaction_Button::init();
     }
 }
 
 // Kick-off the Plugin
-if( function_exists( 'wp_user_reaction' ) ) {
-    wp_user_reaction();
+if( function_exists( 'wp_user_reaction_button' ) ) {
+    wp_user_reaction_button();
 }
