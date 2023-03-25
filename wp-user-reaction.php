@@ -60,7 +60,7 @@ final class WP_User_Reaction_Button{
 
     /**
      * Define plugin's constants
-     * $return void
+     * @return void
      */
     public function define_constant(){
         define( 'WPUR_VERSION', self::version );

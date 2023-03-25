@@ -35,14 +35,22 @@ class Reaction{
     
     public function icon_html() {
         $post_id = get_the_ID();
-        $output = '<div class="wp-urb-reactions" data-post-id="' . $post_id . '" id="wp-urb-reactions-' . $post_id . '">';
+        $total_reaction = get_post_meta( $post_id, 'reaction_count', true);
+        $user_id = get_current_user_id();
+        $current_reaction = get_user_meta( $user_id, 'reaction_' . $post_id, true );
+        $reaction_counts = get_post_meta($post_id, 'reaction_counts' );
+        echo '<pre>';
+        print_r( $reaction_counts );
+        echo '</pre>';
+        $output = '<div class="wp-urb-reactions" data-userid="'. $user_id . '" data-post-id="' . $post_id . '" id="wp-urb-reactions-' . $post_id . '">';
         $output .= '<div class="wp-urb-reaction-like" data-reaction="like">';
-        $output .= '<i class="fa fa-thumbs-up"></i><span class="count"></span>';
+        $output .=  '<span>' . $current_reaction . '</span>';
+        $output .= '<i class="fa fa-thumbs-up"></i><span class="reaction-count"> '. $total_reaction .'</span>';
         $output .= '</div>';
         $output .= '<div class="wp-urb-reaction-icons">';
-        $output .= '<span class="wp-urb-reaction" data-reaction="smile"><i class="fa fa-smile"></i> <span class="count"></span></span>';
-        $output .= '<span class="wp-urb-reaction" data-reaction="straight"><i class="fa fa-meh"></i> <span class="count"></span></span>';
-        $output .= '<span class="wp-urb-reaction" data-reaction="sad"><i class="fa fa-frown"></i> <span class="count"></span></span>';
+        $output .= '<span class="wp-urb-reaction" data-reaction="smile">&#x1F603; <span class="count"></span></span>';
+        $output .= '<span class="wp-urb-reaction" data-reaction="straight">&#x1F610; <span class="count"></span></span>';
+        $output .= '<span class="wp-urb-reaction" data-reaction="sad">&#x1F614; <span class="count"></span></span>';
         $output .= '</div>';
         $output .= '</div>';
         return $output;
@@ -51,31 +59,56 @@ class Reaction{
     
 
     public function save_reaction() {
-        if (isset($_POST['post_id'])) {
-            $post_id = intval($_POST['post_id']);
-            $reaction = $_POST['reaction'];
+        $post_id = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
+        $reaction = isset($_POST['reaction']) ? sanitize_text_field($_POST['reaction']) : '';
 
-            $smile_count = 0;
-            $straight_count = 0;
-            $sad_count = 0;
-
-            $smile = get_post_meta( $post_id, 'wp_urb_smile_count', true );
-            $straight = get_post_meta( $post_id, 'wp_urb_straight_count', true );
-            $sad = get_post_meta( $post_id, 'wp_urb_sad_count', true );
-
-
-            update_post_meta($post_id, 'wp_urb_smile_count', $smile_count+1);
-            update_post_meta($post_id, 'wp_urb_straight_count', $straight_count+1);
-            update_post_meta($post_id, 'wp_urb_sad_count', $sad_count+1);
-            wp_send_json(array(
-                'smile_count' => $smile_count,
-                'straight_count' => $straight_count,
-                'sad_count' => $sad_count
-            ));
+        if( ! is_user_logged_in() ) {
+            echo 'You are not logged int';
+            return;
         }
-        wp_die('Invalid request.');
-        wp_die();
+
+        if ( !wp_verify_nonce( $_POST['nonce'], 'wpurb_reaction_nonce' ) ) {
+            wp_send_json_error( 'Invalid nonce' );
+        }
+    
+        $user_id = $_POST['userid'];
+        $reaction_meta_key = 'reaction_' . $post_id;
+    
+        // Check if user already reacted
+        $current_reaction = get_user_meta( $user_id, 'reaction_' . $post_id, true );
+        if ( $current_reaction && $current_reaction !== $reaction ) {
+            // User has already reacted with a different reaction, remove their previous reaction
+            $prev_count = get_post_meta( $post_id, 'reaction_count_' . $current_reaction, true );
+            $prev_count--;
+            update_post_meta( $post_id, 'reaction_count_' . $current_reaction, $prev_count );
+    
+            $prev_user_count = get_user_meta( $user_id, 'reaction_count_' . $current_reaction, true );
+            $prev_user_count--;
+            update_user_meta( $user_id, 'reaction_count_' . $current_reaction, $prev_user_count );
+        }
+    
+        // Update post reaction count
+        $count = get_post_meta( $post_id, 'reaction_count_' . $reaction, true );
+        $count++;
+        update_post_meta( $post_id, 'reaction_count_' . $reaction, $count );
+    
+        // Update user reaction count
+        $user_count = get_user_meta( $user_id, 'reaction_count_' . $reaction, true );
+        $user_count++;
+        update_user_meta( $user_id, 'reaction_count_' . $reaction, $user_count );
+    
+        // Update user reaction
+        update_user_meta( $user_id, 'reaction_' . $post_id, $reaction );
+    
+        wp_send_json_success( array(
+            'count' => $count,
+            'reaction' => $reaction
+        ) );
+ 
     }
     
+    
+    
+
     
 }

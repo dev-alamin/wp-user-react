@@ -54,6 +54,10 @@ class Menu{
      * @return HTML Content
      */
     public function menu_page(){
-        echo 'Hello from Menu page';
+        $file = __DIR__ . '/view/Main_Menu_CB.php';
+
+        if( file_exists( $file ) ) {
+            include( $file );
+        }
     }
 }
