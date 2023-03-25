@@ -1,5 +1,6 @@
 jQuery(document).ready(function($) {
     $('.wp-urb-reaction').click(function() {
+        var $this = $(this);
         var reaction = $(this).data('reaction');
         var post_id = $(this).closest('.wp-urb-reactions').data('post-id');
         var userid = $(this).closest('.wp-urb-reactions').data('userid');
@@ -15,11 +16,17 @@ jQuery(document).ready(function($) {
                 nonce:wp_urb_reactions.nonce,
             },
             success: function(response) {
-                $this.find('.count').text(response);
+                $('.wp-urb-reaction .reaction-count').text(response);
+                $('.wp-urb-reaction .current-reaction').text(reaction);
+
+                setTimeout(() => {
+                    $('.wp-urb-reaction .reaction-text').text(reaction);
+                }, 3000);
+                
 
                 // Remove the user's old reaction
-                $this.siblings().removeClass('active');
-                $this.siblings('[data-reaction="' + reaction + '"]').addClass('active');
+                // $this.siblings().removeClass('active');
+                // $this.siblings('[data-reaction="' + reaction + '"]').addClass('active');
             }
         });
     });

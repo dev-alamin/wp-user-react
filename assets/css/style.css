@@ -1,4 +1,4 @@
-.wp-urb-reactions span {
+.wp-urb-reaction-icons .wp-urb-reaction {
     font-size: 50px !important;
     margin-right: 15px;
 }
@@ -10,13 +10,9 @@
 .wp-urb-reaction-icons {
     display: none;
     position: absolute;
-    top: 40px;
-    left: 0;
+    top: -35px;
+    left: 60px;
     padding: 6px;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .wp-urb-reaction-like .fa:hover+.wp-urb-reaction-icons {
@@ -41,4 +37,20 @@
 
 .wp-urb-reactions:hover .wp-urb-reaction-icons {
     display: flex;
+}
+
+.wp-urb-reaction-icons .wp-urb-reaction:hover {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+.wp-urb-reaction-icons .wp-urb-reaction {
+    transition: .3s;
+}
+
+.wp-urb-reaction-icons .reaction-count{
+    font-size: 18px;
+}
+.wp-urb-reaction-icons span.current-reaction{
+    font-size: 12px !important;
 }

@@ -89,6 +89,11 @@ final class WP_User_Reaction_Button{
         new \AA\WPUserReactionButton\Assets(); 
         new \AA\WPUserReactionButton\Frontend();
 
+        // Register the elementor widget
+        add_action( 'elementor/widgets/widgets_registered', function() {
+            \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new \AA\WPUserReactionButton\Elementor\Widget() );
+        });
+
         if( is_admin() ) {
             new \AA\WPUserReactionButton\Admin();
         }else{
