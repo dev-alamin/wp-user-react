@@ -4,14 +4,18 @@ namespace AA\WPUserReactionButton\Frontend;
 class Reaction{
     
     public function dispatch_reaction(){
-        
         add_action('wp_ajax_wp_urb_save_reaction', [ $this, 'save_reaction'] );
         add_action('wp_ajax_nopriv_wp_urb_save_reaction', [ $this, 'save_reaction'] );
 
         add_filter( 'the_content', [ $this, 'reactions' ] );
-
     }
     
+    /**
+     * Hooking after content
+     *
+     * @param content $content
+     * @return icon
+     */
     public function reactions( $content ) {
         // Check if we're on a singular post type and it's not an attachment
         if ( is_singular() && ! is_attachment() ) {
@@ -33,6 +37,11 @@ class Reaction{
         return $content;
     }
     
+    /**
+     * Html Icon 
+     *
+     * @return html
+     */
     public function icon_html() {
         $post_id = get_the_ID();
         $total_reaction = get_post_meta( $post_id, 'reaction_counts', true);
@@ -114,11 +123,5 @@ class Reaction{
             'total_count' => $total_count,
             'reaction' => $reaction
         ) );
-    }
-    
-    
-    
-    
-
-    
+    } 
 }

@@ -1,5 +1,14 @@
 <div class="wrap">
     <h1 class="wp-heading-inline"><?php _e('Configure Button', 'wur' ); ?></h1>
+    <br>
+    <br>
+    <p class="wp-urb-copy-shortcode-wrap"><?php _e( 'Copy shortcode to show anywhere', 'wur' ); ?> 
+        <br>
+        <br>
+        <span id="copy-target" class="wp-urb-copy-shortcode"> [wp_urb_reactions] </span>
+        <button id="copy-button" class="copy-button">Copy</button>
+        <span id="copy-success">Copied to clipboard!</span>
+    </p>
     <?php
     if ( isset( $_POST['wp_urb_nonce'] ) && wp_verify_nonce( $_POST['wp_urb_nonce'], 'wp_urb_save_post_type' ) ) {
         // Save selected post type

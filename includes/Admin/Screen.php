@@ -12,7 +12,7 @@ class Screen{
 
     public function remove_all_notice() {
         $screen = get_current_screen();
-        if ( $screen->base === 'toplevel_page_wp-user-reaction-button' ) {
+        if ( $screen->base === 'toplevel_page_wp-user-reaction-button' || $screen->id === 'wp-user-reaction_page_wp-user-reaction-button-settings') {
             remove_all_filters( 'admin_notices' );
         }
     }

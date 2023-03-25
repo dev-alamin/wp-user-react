@@ -8,11 +8,6 @@ class Widget extends Widget_Base {
 
     public function __construct( $data = [], $args = null ) {
         parent::__construct( $data, $args );
-        
-        // Enqueue the Elementor icon library
-        wp_enqueue_style( 'elementor-icons' );
-        wp_enqueue_style( 'font-awesome', '//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css' );
-
     }
 
     public function get_name() {

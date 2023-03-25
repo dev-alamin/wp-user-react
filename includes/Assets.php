@@ -4,6 +4,7 @@ namespace AA\WPUserReactionButton;
 class Assets{
     public function __construct(){
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+        add_action( 'admin_enqueue_scripts', [ $this, 'admin_assets' ] );
     }
 
 
@@ -17,11 +18,21 @@ class Assets{
         
         wp_enqueue_script( 'wp-user-reaction-button', WPUR_PLUGIN_ASSETS . '/js/script.js', ['jquery'], fileatime(WPUR_PLUGIN_PATH . '/assets/js/script.js'), true );
         
-
+        
         wp_localize_script('wp-user-reaction-button', 'wp_urb_reactions', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('wpurb_reaction_nonce'),
         ));
+    }
+    
+    /**
+     * Enqueue admin assets
+     *
+     * @return void
+     */
+    public function admin_assets(){
+        wp_enqueue_style( 'wp-user-reaction-button', WPUR_PLUGIN_ASSETS . '/css/admin.css', [], fileatime(WPUR_PLUGIN_PATH . '/assets/css/admin.css'), 'all' );
+        wp_enqueue_script( 'wp-user-reaction-button', WPUR_PLUGIN_ASSETS . '/js/admin.js', ['jquery'], fileatime(WPUR_PLUGIN_PATH . '/assets/js/admin.js'), true );
     }
     
 }

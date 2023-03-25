@@ -19,7 +19,7 @@ class Menu{
         $parent_slug = 'wp-user-reaction-button';
         $capability = 'manage_options';
 
-            add_menu_page( 
+        add_menu_page( 
             __( 'WP User Reaction', 'wur' ), 
             __( 'WP User Reaction', 'wur' ), 
             $capability, 

@@ -1,0 +1,37 @@
+/* Admin shortcode  */
+.wp-urb-copy-shortcode{
+    user-select: all;
+}
+
+.wp-urb-copy-shortcode-wrap {
+    display: inline-block;
+    position: relative;
+}
+.wp-urb-copy-shortcode {
+    display: inline-block;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 5px;
+    cursor: text;
+}
+.wp-urb-copy-shortcode-wrap .copy-button {
+    background-color: #2271b1;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.wp-urb-copy-shortcode-wrap .copy-button:hover {
+    background-color: #3e8e41;
+}
+
+#copy-success{
+    display: none;
+}
