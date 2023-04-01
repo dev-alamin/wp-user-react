@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Get reaction
+ * Get reactions
  */
 function wp_urb_get_reaction( $user_id, $post_id ){
     $reaction = get_user_meta( $user_id, 'reaction_' . $post_id, true );
@@ -26,8 +26,16 @@ function wp_urb_get_reaction( $user_id, $post_id ){
 function wp_urb_get_reacted_posts(){
     global $wpdb;
 
-    $selected_post_type = get_option( 'wp_urb_selected_post_type' );
-    $selected_post_types_string = "'" . implode("', '", $selected_post_type) . "'";
+    // $selected_post_type = get_option( 'wp_urb_selected_post_type' );
+    
+    $selected_post_type = get_post_types( [ 'public' => true ] );
+
+    if( is_array( $selected_post_type ) ) {
+        $selected_post_types_string = "'" . implode("', '", $selected_post_type) . "'";
+    }else{
+        $selected_post_types_string = '';
+    }
+
     $table_name = $wpdb->prefix . 'postmeta';
     
     $posts_table = $wpdb->posts;
@@ -47,8 +55,17 @@ function wp_urb_get_reacted_posts(){
 function wp_urb_get_data_for_list_table( $per_page, $offset ){
     global $wpdb;
 
-    $selected_post_type = get_option( 'wp_urb_selected_post_type' );
-    $selected_post_types_string = "'" . implode("', '", $selected_post_type) . "'";
+    // $selected_post_type = get_option( 'wp_urb_selected_post_type' );
+
+    $selected_post_type = get_post_types( [ 'public' => true ] );
+
+    
+    if( is_array( $selected_post_type ) ) {
+        $selected_post_types_string = "'" . implode("', '", $selected_post_type) . "'";
+    }else{
+        $selected_post_types_string = '';
+    }
+
     $table_name = $wpdb->prefix . 'postmeta';
     
     $posts_table = $wpdb->posts;

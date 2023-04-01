@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Reaction Button
  * Plugin URI:  https://almn.me
- * Description: A WordPress Plugin that help you to add Reaction option to any POST type.
+ * Description: A WordPress Plugin that helps you to add Reaction option to any POST type.
  * Version:     1.0
  * Author:      Al Amin
  * Author URI:  https://almn.me
@@ -113,3 +113,4 @@ if( ! function_exists( 'wp_user_reaction_button' ) ) {
 if( function_exists( 'wp_user_reaction_button' ) ) {
     wp_user_reaction_button();
 }
+

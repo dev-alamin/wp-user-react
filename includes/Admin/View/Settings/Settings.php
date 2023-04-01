@@ -6,19 +6,25 @@
         <br>
         <br>
         <span id="copy-target" class="wp-urb-copy-shortcode"> [wp_urb_reactions] </span>
-        <button id="copy-button" class="copy-button">Copy</button>
-        <span id="copy-success">Copied to clipboard!</span>
+        <button id="copy-button" class="copy-button"><?php _e( 'Copy', 'wur' ); ?></button>
+        <span id="copy-success"><?php _e( 'Copied to clipboard!', 'wur' ); ?></span>
     </p>
     <?php
     if ( isset( $_POST['wp_urb_nonce'] ) && wp_verify_nonce( $_POST['wp_urb_nonce'], 'wp_urb_save_post_type' ) ) {
         // Save selected post type
         $selected_post_type = isset( $_POST['wp_urb_selected_post_type'] ) ?  $_POST['wp_urb_selected_post_type']  : '';
-        $selected_post_type = array_map( 'sanitize_text_field', $selected_post_type );
+
+        if( is_array( $selected_post_type ) ) {
+            $selected_post_type = array_map( 'sanitize_text_field', $selected_post_type );
+        }else{
+            $selected_post_type = sanitize_text_field( $selected_post_type );
+        }
 
         update_option( 'wp_urb_selected_post_type', $selected_post_type );
 
         // Save selected position
         $selected_position = isset( $_POST['wp_urb_selected_position'] ) ? sanitize_text_field( $_POST['wp_urb_selected_position'] ) : '';
+
         update_option( 'wp_urb_selected_position', $selected_position );
     }
     ?>
@@ -72,9 +78,7 @@
             <input type="radio" name="wp_urb_selected_position" value="top" <?php checked( $selected_position, 'top' ); ?>> <?php _e( 'Top', 'wur' ); ?>
         </label>
      </p>
-
         <?php submit_button( __( 'Save', 'wur' ), 'primary', 'wp_urb_submit' ); ?>
-
     </form>
 
 
